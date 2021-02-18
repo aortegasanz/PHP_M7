@@ -1,0 +1,44 @@
+/* Busqueda de todos los datos de clientes */
+SELECT *
+  FROM clientes as CLI INNER JOIN paises AS PAI ON (CLI.pais_id = PAI.id)
+ WHERE CLI.nombre LIKE('%alberto%') /* Filtro coincidencias nombre "alberto" */
+  ORDER BY CLI.nombre
+
+/* Busqueda de todos los datos de proveedore */
+SELECT *
+  FROM proveedores as PRV INNER JOIN paises AS PAI ON (PRV.pais_id = PAI.id)
+ WHERE PRV.nombre LIKE('%gaf%') /* Filtro coincidencias nombre "gaf" */
+  ORDER BY PRV.nombre
+
+/* Búsqueda de  todos los empleados */
+SELECT * FROM empleados
+
+/* Búsqueda de todas las marcas de gafas */
+SELECT * FROM marcas m;
+
+/* Búsqueda de todos los países */
+SELECT * FROM paises p;
+
+/* Búsqueda de todos los productos y sus datos de tablas relacionadas (marca, tipomontura, proveedor) */
+SELECT PRD.*, MAR.nombre as Marca, TMO.nomb as TipoMontura, PRV.nombre as Proveedor
+  FROM productos as PRD INNER JOIN marcas as MAR ON (PRD.marca_id = MAR.id)
+                        INNER JOIN tiposmontura as TMO ON (PRD.tipomontura_id = TMO.id)
+                        INNER JOIN proveedores as PRV ON (PRD.proveedor_id = PRV.id)
+
+/* Búsqueda de las cabeceras de ventas realizadas */
+SELECT VEN.*, CLI.nombre as Cliente, EMP.nombre as Empleado
+  FROM ventas as VEN INNER JOIN clientes  as CLI ON (VEN.cliente_id  = CLI.id)
+                     INNER JOIN empleados as EMP ON (VEN.empleado_id = EMP.id)
+
+/* Resumen de Ventas Detallado */
+SELECT EMP.nombre as Empleado,
+       VEN.fecha_venta as FechaVenta,
+       CLI.nombre as Cliente,
+       PRO.nombre as Producto,
+       PRO.importe as Importe,
+       VED.cantidad as Cantidad,
+       (PRO.importe * VED.cantidad) as SubTotal
+  FROM ventasdetalle as VED INNER JOIN ventas    as VEN ON (VED.ventas_id   = VEN.id)
+                            INNER JOIN productos as PRO ON (VED.producto_id = PRO.id)
+                            INNER JOIN clientes  as CLI ON (VEN.cliente_id  = CLI.id)
+                            INNER JOIN empleados as EMP ON (VEN.empleado_id = EMP.id)
