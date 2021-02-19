@@ -20,7 +20,7 @@ SELECT * FROM marcas m;
 SELECT * FROM paises p;
 
 /* Búsqueda de todos los productos y sus datos de tablas relacionadas (marca, tipomontura, proveedor) */
-SELECT PRD.*, MAR.nombre as Marca, TMO.nomb as TipoMontura, PRV.nombre as Proveedor
+SELECT PRD.*, MAR.nombre as Marca, TMO.nombre as TipoMontura, PRV.nombre as Proveedor
   FROM productos as PRD INNER JOIN marcas as MAR ON (PRD.marca_id = MAR.id)
                         INNER JOIN tiposmontura as TMO ON (PRD.tipomontura_id = TMO.id)
                         INNER JOIN proveedores as PRV ON (PRD.proveedor_id = PRV.id)

@@ -230,7 +230,7 @@ INSERT INTO `proveedores` (`id`,`nombre`,`dir_calle`,`dir_numero`,`dir_piso`,`di
 DROP TABLE IF EXISTS `tiposmontura`;
 CREATE TABLE `tiposmontura` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `nomb` varchar(45) NOT NULL,
+  `nombre` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='Maestro Tipos Montura';
 
