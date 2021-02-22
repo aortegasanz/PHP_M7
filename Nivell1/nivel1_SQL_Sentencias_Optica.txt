@@ -4,7 +4,7 @@ SELECT *
  WHERE CLI.nombre LIKE('%alberto%') /* Filtro coincidencias nombre "alberto" */
   ORDER BY CLI.nombre
 
-/* Busqueda de todos los datos de proveedore */
+/* Busqueda de todos los datos de proveedores */
 SELECT *
   FROM proveedores as PRV INNER JOIN paises AS PAI ON (PRV.pais_id = PAI.id)
  WHERE PRV.nombre LIKE('%gaf%') /* Filtro coincidencias nombre "gaf" */
