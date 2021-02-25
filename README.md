@@ -31,7 +31,7 @@ Sprint 7. Base de Dades SQL
     Un usuari publica vídeos. 
     De cada vídeo guardem un identificador únic, un títol, una descripció, una grandària, el nom de l'arxiu de vídeo, durada del vídeo, un thumbnail, el nombre de reproduccions, el número de likes, el número de dislikes. 
     Un vídeo pot tenir tres estats diferents: públic, ocult i privat. 
-    Un vídeo pot tenir moltes etiquetes. Una etiqueta s'identifica per una Identificador únici un nom d'etiqueta. 
+    Un vídeo pot tenir moltes etiquetes. Una etiqueta s'identifica per una Identificador únici un nom d'etiqueta.     
     Interessa guardar qui és l'usuari que publica el vídeo i en quina data/hora el fa. 
     Un usuari pot crear un canal. Un canal té un identificador únic, un nom, una descripció i una data de creació. 
     Un usuari es pot subscriure als canals d'altres usuaris. 

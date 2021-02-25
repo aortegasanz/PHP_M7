@@ -1,0 +1,62 @@
+/* Busqueda de todos los datos de clientes */
+SELECT CLI.nombre, CLI.apellidos, CLI.telefono,
+       CLI.direccion, POB.codposta as CodigoPostal, POB.nombre as Poblacion, PRV.nombre as Provincia
+  FROM clientes as CLI INNER JOIN poblaciones AS POB ON (CLI.poblacion_id = POB.id)
+                       INNER JOIN provincias  AS PRV ON (POB.provincia_id = PRV.id)
+ WHERE CLI.nombre LIKE('%alberto%') /* Filtro coincidencias nombre "alberto" */
+ ORDER BY CLI.nombre
+
+ /* Búsqueda de todas las tiendas */
+SELECT TIE.nombre, TIE.direccion, POB.codposta as CodigoPostal, POB.nombre as Poblacion, PRV.nombre as Provincia
+  FROM tiendas as TIE INNER JOIN poblaciones AS POB ON (TIE.poblacion_id = POB.id)
+                      INNER JOIN provincias  AS PRV ON (POB.provincia_id = PRV.id)
+ ORDER BY TIE.nombre
+
+/* Búsqueda de todas las poblaciones */
+SELECT POB.nombre, POB.codposta as CodigoPostal, POB.cpnu as CodigoSecundario, PRV.nombre as Provincia
+  FROM poblaciones as POB INNER JOIN provincias AS PRV ON (POB.provincia_id = PRV.id)
+ ORDER BY POB.nombre
+
+/* Búsqueda de todos las províncias */
+SELECT * FROM provincias as PRO;
+
+/* Búsqueda de todos los empleados */
+SELECT EMP.nombre, EMP.apellidos, EMP.nif, EMP.telefono,
+       TEM.nombre as TipoEmpleado, TIE.nombre as Tienda
+  FROM empleados as EMP INNER JOIN tiposempleado as TEM ON (EMP.tipoempleado_id = TEM.id)
+                        INNER JOIN tiendas as TIE ON (EMP.tienda_id = TIE.id)
+
+/* Búsqueda de todos los tipos de empleados */
+SELECT * FROM tiposempleado as TEM;
+
+/* Búsqueda de todos los tipos de pedidos */
+SELECT * FROM tipospedido as TPE;
+
+/* Búsqueda de todos las categorías de productos */
+SELECT * FROM categorias as CAT;
+
+/* Búsqueda de todos los productos y sus datos de tablas relacionadas (marca, tipomontura, proveedor) */
+SELECT PRD.*, CAT.nombre as Categoria
+  FROM productos as PRD INNER JOIN categorias as CAT ON (PRD.categoria_id = CAT.id)
+
+/* Búsqueda de las cabeceras de ventas realizadas */
+SELECT PED.*, CLI.nombre as Cliente, TPE.nombre as TipoPedido,
+       EMP.nombre as Empleado,
+       PED.fecha_entrega as FechaEntrega
+  FROM pedidos as PED INNER JOIN clientes as CLI ON (PED.cliente_id  = CLI.id)
+                      INNER JOIN tipospedido as TPE ON (PED.tipopedido_id = TPE.id)
+                       LEFT JOIN empleados as EMP ON (PED.empleado_id = EMP.id)
+
+/* Resumen de Ventas Detallado */
+SELECT
+       PED.fecha_operacion as FechaOperacion,
+       PED.fecha_entrega as FechaEntrega,
+       CLI.nombre as Cliente,
+       PRO.nombre as Producto,
+       PRO.importe as Importe,
+       PDD.cantidad as Cantidad,
+       (PRO.importe * PDD.cantidad) as SubTotal
+  FROM pedidosdetalle as PDD INNER JOIN pedidos   as PED ON (PDD.pedido_id   = PED.id)
+                             INNER JOIN productos as PRO ON (PDD.producto_id = PRO.id)
+                             INNER JOIN clientes  as CLI ON (PED.cliente_id  = CLI.id)
+                              LEFT JOIN empleados as EMP ON (PED.empleado_id = EMP.id)
